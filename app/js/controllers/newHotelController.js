@@ -2,6 +2,15 @@ angular.module('discoHotel').controller('newHotelController',
 
 	function($scope, hotelsProvider, $location) {
 
+		$scope.alertDesc = function(test){
+			alert(test);
+		}
+
+		$scope.hotel = {
+			description : " Default description",
+			name : 'Default name'
+		}
+
 		$scope.step = 1;
 		$scope.moveNext = function(){
 			$scope.step++;

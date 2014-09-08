@@ -2,7 +2,7 @@
 'use strict';
 
 //details discohotel
-angular.module('discoHotel', ['ngRoute'])
+angular.module('discoHotel', ['ngRoute', 'ngSanitize'])
 .config(['$routeProvider',
 
     function($routeProvider) {
