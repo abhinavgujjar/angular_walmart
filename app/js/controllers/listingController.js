@@ -1,8 +1,15 @@
 
 angular.module('discoHotel').controller('listingController',
-    function($scope, uiConfig, hotelsProvider, votingService) {
+    function($scope, uiConfig, hotelsProvider, votingService, $routeParams, $location) {
+
+        console.log($routeParams.hotelId);
 
         $scope.descLimit = uiConfig.descLimit;
+
+        $scope.selectHotel = function(hotel){
+            hotelsProvider.selectedHotel = hotel;
+            $location.url('/details');
+        }
 
 
         hotelsProvider.getHotels().then(function(hotels){

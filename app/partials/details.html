@@ -1,0 +1,43 @@
+<div>
+	<div class="col-md-1">
+		<div>
+			<button ng-click="upVote(hotel)" class="btn btn-sm btn-success">
+				<span class="glyphicon glyphicon-chevron-up"></span>
+			</button>
+		</div>
+		<div >
+			<h3>
+				<span class="label label-default">{{hotel.rating ? hotel.rating : 0}}</span>
+			</h3>
+		</div>
+		<div>
+			<button ng-disabled="(!hotel.rating || hotel.rating <= 0 )" ng-click="downVote(hotel)" class="btn btn-sm btn-danger">
+				<span class="glyphicon glyphicon-chevron-down"></span>
+			</button>
+		</div>
+	</div>
+	<div class="col-md-11">
+		<img ng-src="http://i.imgur.com/{{hotel.imgUrl}}" class="col-md-2 col-sm-3 col-xs-3 img-thumbnail" />
+		<div class="col-md-offset-1 col-md-9 col-sm-9 col-xs-9 padding-left">
+			<div class="row h3">{{hotel.name | uppercase}}</div>
+			<div class="row">
+				<span ng-show="!showMore">{{hotel.description | limitTo : descLimit}}</span>
+				<span ng-show="showMore">{{hotel.description}}</span>
+				<span ng-show="hotel.description.length>descLimit && !showMore">...</span>
+				<span ng-show="hotel.description.length>
+					descLimit && !showMore">
+					<a href="" ng-click="showMore = true">more</a>
+				</span>
+			</div>
+			<div class="row">
+				<div class="col-md-4 ">
+					<h2>
+						<span class="label label-success">{{hotel.price | toPounds | currency : 'GBP '}}</span>
+					</h2>
+				</div>
+				<div class="col-md-4">{{hotel.location}}</div>
+				<div class="col-md-4">{{hotel.area | toFeet : 'sqft' }}</div>
+			</div>
+		</div>
+	</div>
+</div>

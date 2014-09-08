@@ -4,24 +4,32 @@
 
 
 angular.module('discoHotel').factory('hotelsProvider',
-    function($http, $timeout, $q) {
+    function($http, $timeout, $q, parseHeaders) {
 
         return {
             getHotels: function() {
 
                 var deferred = $q.defer();
 
-                $http.get('https://api.parse.com/1/classes/Hotel', {
-                    headers: {
-                        'X-Parse-Application-Id': '',
-                        'X-Parse-REST-API-Key': '',
+                var op = $http.get('https://api.parse.com/1/classes/Hotel', {
+                    headers: parseHeaders,
+                    transformResponse : function(rawData){
+                        var json = angular.fromJson(rawData);
+
+                        return json.results;
                     }
 
-                }).success(function(hotels) {
+                })
+
+                op.then(function(response){
+                    console.log(response);
+                });
+
+                op.success(function(hotels) {
 
                     $timeout(function() {
-                        deferred.resolve(hotels.results);
-                    }, 500);
+                        deferred.resolve(hotels);
+                    });
 
                 }).error(function(error) {
                     //alert(error);
@@ -32,14 +40,31 @@ angular.module('discoHotel').factory('hotelsProvider',
                 return deferred.promise;
 
             },
+            getHotel: function(id) {
+
+                var deferred = $q.defer();
+
+                $http.get('https://api.parse.com/1/classes/Hotel/' + id, {
+                    headers:parseHeaders
+
+                }).success(function(hotel) {
+
+                    deferred.resolve(hotel);
+
+                }).error(function(error) {
+                    //alert(error);
+
+                    deferred.reject('could not find your hotel');
+                });
+
+                return deferred.promise;
+
+            },
             addHotel: function(hotel) {
                 //hotels.push(hotel);
 
                 $http.post('https://api.parse.com/1/classes/Hotel', hotel, {
-                    headers: {
-                        'X-Parse-Application-Id': '',
-                        'X-Parse-REST-API-Key': '',
-                    }
+                    headers: parseHeaders
 
                 });
 

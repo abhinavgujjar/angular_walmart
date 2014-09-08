@@ -1,5 +1,5 @@
 <div class="col-md-9">
-	<div class="row" ng-controller="listingController">
+	<div class="row" >
 
 		<hr/>
 		<div class="row hidden-xs">
@@ -41,7 +41,7 @@
 				<div class="col-md-11">
 					<img ng-src="http://i.imgur.com/{{hotel.imgUrl}}" class="col-md-2 col-sm-3 col-xs-3 img-thumbnail" />
 					<div class="col-md-offset-1 col-md-9 col-sm-9 col-xs-9 padding-left">
-						<div class="row h3">{{hotel.name | uppercase}}</div>
+						<div class="row h3"><a href="" ng-click="selectHotel(hotel)" >{{hotel.name | uppercase}}</a></div>
 						<div class="row">
 							<span ng-show="!showMore">{{hotel.description | limitTo : descLimit}}</span>
 							<span ng-show="showMore">{{hotel.description}}</span>
